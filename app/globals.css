@@ -277,74 +277,223 @@ hr.hair { border: 0; border-top: 1px solid var(--line); margin: 0; }
 .float-cta a.book:hover { background: var(--gold-2); }
 
 /* ============================================================
-   RESPONSIVE
+   RESPONSIVE — progressive scaling
+   Breakpoints:
+     ≥1200px  desktop (default)
+     ≤1199px  small desktop / large tablet — tighter container & typo
+     ≤960px   tablet — burger nav, About stacks, 2-col grids
+     ≤720px   phone — single column, compact paddings, mobile typo
+     ≤420px   small phone — minimum sizes, denser
    ============================================================ */
 
-@media (max-width: 1000px) {
-  .desktop-nav { display: none !important; }
-  .mobile-menu { display: inline-flex !important; }
-  .section-head { flex-direction: column; align-items: flex-start; }
-  .section-head h2 { font-size: 40px; }
+/* Hide/show utilities tied to the nav-switch breakpoint */
+.hide-mobile { display: initial; }
+.show-mobile { display: none !important; }
+
+/* ---------- Small desktop / large tablet (≤ 1199px) ----------
+   Keep the desktop layout but tighten container and typography. */
+@media (max-width: 1199px) {
+  .max { padding: 0 32px; }
+  .max-narrow { padding: 0 32px; }
+
+  /* Hero: reduce title so it doesn't push off-screen */
+  .hero-content h1 { font-size: 64px !important; line-height: 1.04 !important; }
+  .hero-content p { max-width: 440px !important; }
+
+  /* Section heads */
+  .section-head { margin-bottom: 40px; }
+  .section-head h2 { font-size: 44px; }
+
+  /* About */
+  .about-grid { gap: 56px !important; }
+  .about-grid h2 { font-size: 46px !important; }
+  .advantages-grid { gap: 24px !important; }
+  #about > div + div > h3 { font-size: 32px !important; }
+
+  /* Services & Pricing */
+  .services-grid { gap: 20px !important; }
+  .service-card { padding: 24px !important; }
+
+  /* Contacts */
+  .contact-grid { gap: 48px !important; }
+
+  /* Booking */
+  #booking { padding: 40px !important; gap: 40px !important; }
+  #booking h3 { font-size: 34px !important; }
+
+  /* Footer */
+  .footer-grid { gap: 32px !important; }
+  .footer-pad { padding: 64px 32px 36px !important; }
+
+  /* Section paddings — collapse 140-160 to 110 */
+  .section-pad { padding-top: 110px !important; }
+  /* Inline marginTop on advantages wrapper, booking, and footer */
+  #about > div + div { margin-top: 110px !important; }
+  #booking { margin-top: 96px !important; }
+  footer { margin-top: 96px !important; }
 }
 
+/* ---------- Tablet (≤ 960px) ----------
+   Switch to mobile nav, stack the About story, drop grids to 2 cols. */
+@media (max-width: 960px) {
+  .desktop-nav { display: none !important; }
+  .mobile-menu { display: inline-flex !important; }
+  .hide-mobile { display: none !important; }
+  .show-mobile { display: initial !important; }
+
+  /* Header tightens */
+  .header-row { gap: 16px !important; }
+  .header-actions { gap: 10px !important; }
+
+  /* Hero: one-column (right "Chapter" panel is hidden), text gets full width */
+  .hero-section { height: min(80svh, 720px) !important; }
+  .hero-section .max { grid-template-columns: 1fr !important; padding-bottom: 48px !important; }
+  .hero-content h1 { font-size: 52px !important; }
+  .hero-content p { max-width: 560px !important; }
+
+  /* Section heads stack */
+  .section-head { flex-direction: column; align-items: flex-start; gap: 14px; margin-bottom: 32px !important; }
+  .section-head h2 { font-size: 38px !important; }
+
+  /* About: stack — and constrain photo so it doesn't tower */
+  .about-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .about-grid > div:first-child { aspect-ratio: 4 / 3 !important; max-height: 520px; }
+  .about-grid h2 { font-size: 40px !important; }
+  .advantages-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 24px !important; }
+  #about > div + div { margin-top: 88px !important; }
+  #about > div + div > h3 { font-size: 30px !important; margin-bottom: 36px !important; }
+
+  /* Services 2 columns */
+  .services-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 18px !important; }
+  .service-card h3 { font-size: 24px !important; }
+
+  /* Pricing */
+  .price-group-head h3 { font-size: 22px !important; }
+  .price-row { gap: 20px; }
+  .price-row .name { max-width: none; }
+  .price-row .amounts { grid-template-columns: 110px 110px; gap: 18px; }
+
+  /* Contacts stack */
+  .contact-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .contacts-map { aspect-ratio: 16 / 10 !important; }
+
+  /* Booking stacks */
+  #booking { grid-template-columns: 1fr !important; padding: 36px !important; gap: 28px !important; margin-top: 88px !important; }
+  #booking h3 { font-size: 30px !important; }
+
+  /* Footer 2 cols */
+  .footer-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 36px !important; }
+  .footer-pad { padding: 56px 24px 32px !important; }
+
+  /* Section padding next step down */
+  .section-pad { padding-top: 88px !important; }
+  footer { margin-top: 80px !important; }
+}
+
+/* ---------- Phone (≤ 720px) ---------- */
 @media (max-width: 720px) {
   body { font-size: 14px; }
 
-  /* Header compact */
-  .header-row { height: 60px !important; padding: 0 16px !important; }
-  .header-wordmark { font-size: 13px !important; letter-spacing: 0.28em !important; }
-  .header-actions .hide-mobile { display: none !important; }
+  .max, .max-narrow { padding: 0 20px; }
 
-  /* Section padding scale */
+  /* Header: compact, no phone link, smaller booking pill */
+  .header-row { height: 60px !important; padding: 0 16px !important; gap: 12px !important; }
+  .header-wordmark { font-size: 13px !important; letter-spacing: 0.28em !important; }
+  .header-actions { gap: 8px !important; }
+  .header-actions .hide-mobile { display: none !important; }
+  .header-actions .btn.gold { height: 36px !important; padding: 0 14px !important; font-size: 10px !important; letter-spacing: 0.2em !important; }
+
+  /* Section padding */
   .section-pad { padding-top: 64px !important; padding-bottom: 0 !important; }
+  footer { margin-top: 64px !important; }
 
   /* Hero */
   .hero-section { height: 78svh !important; min-height: 460px !important; max-height: 640px !important; }
-  .hero-content h1 { font-size: 36px !important; line-height: 1.08 !important; }
+  .hero-section .max { padding-bottom: 36px !important; }
+  .hero-content h1 { font-size: 38px !important; line-height: 1.08 !important; }
   .hero-content .eyebrow { margin-bottom: 14px !important; }
+  .hero-content p { font-size: 14px !important; margin-top: 18px !important; max-width: 100% !important; }
   .hero-cta { flex-direction: column !important; align-items: stretch !important; gap: 10px !important; margin-top: 24px !important; }
   .hero-cta .btn { width: 100% !important; }
 
   /* Section heads */
-  .section-head { margin-bottom: 28px !important; gap: 14px !important; }
+  .section-head { margin-bottom: 26px !important; gap: 12px !important; }
   .section-head h2 { font-size: 30px !important; line-height: 1.15 !important; }
+  .section-head .btn { height: 42px !important; padding: 0 18px !important; }
 
   /* About */
-  .about-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+  .about-grid { gap: 28px !important; }
+  .about-grid > div:first-child { aspect-ratio: 4 / 5 !important; max-height: none; }
   .about-grid h2 { font-size: 30px !important; }
-  .advantages-grid { grid-template-columns: 1fr 1fr !important; gap: 22px !important; }
+  .about-grid blockquote { font-size: 18px !important; margin: 24px 0 !important; padding: 0 0 0 18px !important; }
+  .about-grid p { font-size: 14px !important; line-height: 1.75 !important; }
+  .advantages-grid { grid-template-columns: 1fr 1fr !important; gap: 20px !important; }
+  #about > div + div { margin-top: 64px !important; }
+  #about > div + div > h3 { font-size: 26px !important; margin-bottom: 28px !important; }
 
   /* Services */
-  .services-grid { grid-template-columns: 1fr !important; gap: 18px !important; }
+  .services-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
   .service-card { padding: 22px !important; }
   .service-card h3 { font-size: 22px !important; }
+  .service-card p { font-size: 13.5px !important; }
 
   /* Pricing */
-  .price-group-head h3 { font-size: 20px !important; }
-  .price-row { flex-wrap: wrap; gap: 10px; }
+  .price-group-head { padding: 20px 0 !important; gap: 14px !important; }
+  .price-group-head h3 { font-size: 20px !important; line-height: 1.25 !important; }
+  .price-group-head .toggle { width: 32px !important; height: 32px !important; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 8px 14px; padding: 14px 0 !important; }
+  .price-row .name { font-size: 14px !important; max-width: 100% !important; flex: 1 1 100%; }
   .price-row .amount { font-size: 17px; }
-  .price-row .amounts { grid-template-columns: 1fr 1fr; gap: 14px; width: 100%; }
+  .price-row .amounts { grid-template-columns: 1fr 1fr !important; gap: 12px !important; width: 100%; text-align: left !important; }
   .price-row .amounts .amount { font-size: 15px; }
-  .price-row.price-head { padding-top: 0; }
+  .price-row.price-head { padding: 0 0 8px !important; }
   .price-row.price-head .name { display: none; }
+  .price-row.price-head .amounts { text-align: left !important; }
+  .price-row.price-head .col-label { text-align: left !important; }
 
   /* Contacts */
-  .contact-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .contact-grid { gap: 28px !important; }
   .contacts-map { aspect-ratio: 4 / 3 !important; }
+
+  /* Booking */
+  #booking { margin-top: 56px !important; padding: 28px 22px !important; gap: 22px !important; }
+  #booking h3 { font-size: 26px !important; }
+  #booking p { font-size: 14px !important; }
+  #booking form { gap: 18px !important; }
 
   /* Footer */
   .footer-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
-  .footer-pad { padding: 48px 16px 32px !important; }
-  .footer-bottom { flex-direction: column !important; gap: 14px !important; align-items: flex-start !important; }
+  .footer-pad { padding: 44px 20px 28px !important; }
+  .footer-bottom { flex-direction: column !important; gap: 12px !important; align-items: flex-start !important; }
+  .footer-bottom > div:last-child { flex-wrap: wrap; gap: 12px !important; }
 
-  /* Float CTA */
-  .float-cta { right: 14px; bottom: 14px; }
-  .float-cta a { width: 48px; height: 48px; }
+  /* Float CTA: only icons, no booking pill */
+  .float-cta { right: 14px; bottom: 14px; gap: 8px; }
+  .float-cta a { width: 46px; height: 46px; }
   .float-cta a.book { display: none; }
 }
 
-@media (max-width: 380px) {
+/* ---------- Small phone (≤ 420px) ---------- */
+@media (max-width: 420px) {
+  .max, .max-narrow { padding: 0 16px; }
+
+  /* Header: hide the booking pill at this width to avoid overflow */
+  .header-row { gap: 8px !important; padding: 0 14px !important; }
+  .header-actions .btn.gold { display: none !important; }
+
   .hero-content h1 { font-size: 30px !important; }
+  .hero-content p { font-size: 13.5px !important; }
   .section-head h2 { font-size: 26px !important; }
+
+  /* Advantages collapse to single column on tiny screens */
   .advantages-grid { grid-template-columns: 1fr !important; }
+
+  /* Booking compact */
+  #booking { padding: 22px 16px !important; }
+  #booking h3 { font-size: 22px !important; line-height: 1.18 !important; }
+
+  /* Pricing tighter padding */
+  .price-group-head { padding: 16px 0 !important; }
+  .price-group-head h3 { font-size: 18px !important; }
+  .price-row .name { font-size: 13.5px !important; }
 }
